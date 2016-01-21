@@ -1,14 +1,26 @@
-'use strict';
+class App {
 
-import ResourceManager from './lib/core/ResourceManager';
+	constructor() {
+		debugger
+		// find required pages
+		const viewsWrapElements = Array.prototype.slice.call(document.querySelectorAll('[data-view]'));
 
-window.addEventListener('load', loadPages);
+		// load all pages async and insert them into DOM as they come
+		viewsWrapElements.forEach(this.loadView);
+	}
 
-function loadPages() {
-	debugger;
-	const resourceManager = new ResourceManager();
-	resourceManager.doSomething();
+	/**
+	 * Finds view name from data-view attribute and inserts view contents into the DOM
+	 * @param {HTMLElement} viewWrapDom
+	 */
+	static loadView(viewWrapDom) {
+		// TODO: make it async
 
-	console.log('hi!');
-	console.log(document.querySelector('.contact-page'));
+		const viewName = viewWrapDom.dataset.view;
+		viewWrapDom.innerHTML = require('./views/' + viewName + '/index');
+	}
+
 }
+
+// start the app
+window.addEventListener('load', () => new App());

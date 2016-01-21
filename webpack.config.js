@@ -1,5 +1,6 @@
-var Webpack = require('webpack');
 var path = require('path');
+
+var appPath = path.resolve(__dirname, 'app');
 
 module.exports = {
 	entry: {
@@ -11,17 +12,23 @@ module.exports = {
 		filename: 'bundle.js'
 	},
 
+	eslint: {
+		configFile: '.eslintrc',
+		emitError: true,
+		emitWarning: true
+	},
+
 	module: {
+		preLoaders: [
+			{ test: /\.js$/, include: appPath, loader: 'eslint-loader' }
+		],
 		loaders: [
-			{ test: /\.js$/, include: path.resolve(__dirname, 'app'), loader: 'babel-loader' },
-			{ test: /\.css/, include: path.resolve(__dirname, 'app'), loaders: ['style', 'css?sourceMap'] },
+			{ test: /\.js$/, include: appPath, loader: 'babel-loader' },
+			{ test: /\.html$/, loader: 'html-loader' },
+			{ test: /\.css/, include: appPath, loaders: ['style', 'css?sourceMap', 'sass?sourceMap'] },
 			{ test: /\.(png|jpg|)$/, loader: 'url?limit=10000&name=[name].[ext]' }
 		]
 	},
-
-	plugins: [
-		new Webpack.NoErrorsPlugin()
-	],
 
 	debug: true,
 

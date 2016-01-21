@@ -9,8 +9,9 @@ Page will be divided to sub-pages. First page is loaded initially along with app
 Everything is built up using web components and ES6 standards. Site supports offline mode and web app. 
 
 ## todo
-* [ ] setup webpack
-* [ ] setup es6 support
+* [x] setup webpack
+* [x] setup es6 support
+* [x] setup linting
 * [ ] setup web components system (use templates)
 * [ ] setup translation system
 * [ ] setup page navigation
